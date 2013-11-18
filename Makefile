@@ -1,10 +1,7 @@
-all: clean server client
+all: clean routedLS
 
-server: udp_server.c
-	gcc -Wall udp_server.c -o server
-
-client: udp_client.c
-	gcc -Wall udp_client.c -o client
+routedLS: routedLS.c
+	gcc -Wall routedLS.c -o routedLS
 
 clean:
-	rm -f server client
+	rm -f routed_LS
