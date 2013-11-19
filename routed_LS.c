@@ -14,10 +14,11 @@
 #include <errno.h>
 #include <math.h>
 #include <string.h>
-//#include <ctype.h>
+#include "routed_LS.h"
 
 #define USAGE "./routed_LS <RouterID> <LogFileName> <Initialization file>"
 #define INF -999
+#define MAX_LINKED_STATES 10
 
 int main(int argc, char *argv[]) {
 	if (argc != 4)
@@ -47,6 +48,9 @@ int main(int argc, char *argv[]) {
 		return EXIT_FAILURE;
 	}
 	
+	// Create a storage mechanism for all the link states.
+	struct link_state local_states[MAX_LINKED_STATES];
+	
 	// Parse the initialization file.
 	// File format: <source router, source TCP port, destination router, destination TCP port, link cost>
 	//<A,9701,B,9704,4>
@@ -57,9 +61,19 @@ int main(int argc, char *argv[]) {
 	int destination_tcp_port = -999;
 	int link_cost = -999;
 	
+	int count = 0;
+	
 	while( fscanf(initialization_file, "<%c,%d,%c,%d,%d>\n", &source_router, &source_tcp_port, &destination_router, &destination_tcp_port, &link_cost) != EOF) 
 	{
 		if ( source_router == routerID )
+		{
+			local_states[count].source_router = source_router;
+			local_states[count].source_tcp_port = source_tcp_port;
+			local_states[count].destination_router = destination_router;
+			local_states[count].destination_tcp_port = destination_tcp_port;
+			local_states[count].link_cost = link_cost;
+			count++;
+		}
 			printf("<%c,%d,%c,%d,%d>\n", source_router, source_tcp_port, destination_router, destination_tcp_port, link_cost);
 		//sleep(5);
 		
