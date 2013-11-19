@@ -17,3 +17,6 @@
 *.out
 *.app
 routedLS
+
+# Log files
+log.txt
