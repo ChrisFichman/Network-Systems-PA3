@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	//routerID argv[1]
-	char* routerID = argv[1];
+	char routerID = argv[1][0];
 	
 	//LogFileName argv[2]
 	FILE* log_file;
@@ -56,13 +56,12 @@ int main(int argc, char *argv[]) {
 	int destination_tcp_port = -999;
 	int link_cost = -999;
 	
-	fprintf(stderr, "Sup?\n");
-	
-	while ( fscanf(initialization_file, "<%c,%d,%c,%d,%d>\n", &source_router, &source_tcp_port, &destination_router, &destination_tcp_port, &link_cost) != EOF) 
+	while( fscanf(initialization_file, "<%c,%d,%c,%d,%d>\n", &source_router, &source_tcp_port, &destination_router, &destination_tcp_port, &link_cost) != EOF) 
 	{
+		if ( source_router == routerID )
+			printf("<%c,%d,%c,%d,%d>\n", source_router, source_tcp_port, destination_router, destination_tcp_port, link_cost);
+		//sleep(5);
 		
-		printf("<%c,%d,%c,%d,%d>\n", source_router, source_tcp_port, destination_router, destination_tcp_port, link_cost);
-		sleep(5);
 	}
 	
 	
