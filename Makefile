@@ -1,7 +1,7 @@
 all: clean routedLS
 
-routedLS: routedLS.c
-	gcc -Wall routedLS.c -o routedLS
+routedLS: routed_LS.c
+	gcc -Wall routed_LS.c -o routedLS
 
 clean:
 	rm -f routed_LS
