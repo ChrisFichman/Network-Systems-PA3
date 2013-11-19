@@ -5,4 +5,5 @@ struct link_state {
 	char destination_router;
 	int destination_tcp_port;
 	int link_cost;
+	int sockfd;
 };

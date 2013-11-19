@@ -60,6 +60,9 @@ int main(int argc, char *argv[]) {
 	char destination_router = 'Z';
 	int destination_tcp_port = -999;
 	int link_cost = -999;
+	struct sockaddr_in this_sock_addr;
+	this_sock_addr.sin_family = AF_INET;      		//address family
+	this_sock_addr.sin_addr.s_addr = INADDR_ANY;    //supplies the IP address of the local machine
 	
 	int count = 0;
 	
@@ -67,14 +70,28 @@ int main(int argc, char *argv[]) {
 	{
 		if ( source_router == routerID )
 		{
+			// store the data
 			local_states[count].source_router = source_router;
 			local_states[count].source_tcp_port = source_tcp_port;
 			local_states[count].destination_router = destination_router;
 			local_states[count].destination_tcp_port = destination_tcp_port;
 			local_states[count].link_cost = link_cost;
+					
+			this_sock_addr.sin_port = htons(local_states[count].source_tcp_port);        //htons() sets the port # to network byte order
+			
+			
+			// create the necessary socket and bind it
+			local_states[count].sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+			if (bind(local_states[count].sockfd, (struct sockaddr *)&this_sock_addr, sizeof(this_sock_addr))<0)
+			{
+				fprintf(stderr, "Could not bind socket to port.");
+				return EXIT_FAILURE;
+			}
+			
 			count++;
-		}
 			printf("<%c,%d,%c,%d,%d>\n", source_router, source_tcp_port, destination_router, destination_tcp_port, link_cost);
+		}
+			
 		//sleep(5);
 		
 	}
