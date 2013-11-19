@@ -17,6 +17,7 @@
 //#include <ctype.h>
 
 #define USAGE "./routed_LS <RouterID> <LogFileName> <Initialization file>"
+#define INF -999
 
 int main(int argc, char *argv[]) {
 	if (argc != 4)
@@ -63,7 +64,6 @@ int main(int argc, char *argv[]) {
 		//sleep(5);
 		
 	}
-	
 	
 	
 	
