@@ -19,6 +19,7 @@
 #define USAGE "./routed_LS <RouterID> <LogFileName> <Initialization file>"
 #define INF -999
 #define MAX_LINKED_STATES 10
+#define MAX_ROUTERS 24
 
 int main(int argc, char *argv[]) {
 	if (argc != 4)
@@ -92,9 +93,9 @@ int main(int argc, char *argv[]) {
 			printf("<%c,%d,%c,%d,%d>\n", source_router, source_tcp_port, destination_router, destination_tcp_port, link_cost);
 		}
 			
-		//sleep(5);
-		
+		//sleep(5);	
 	}
+	
 	
 	
 	
